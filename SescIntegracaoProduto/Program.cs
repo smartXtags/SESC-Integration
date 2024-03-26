@@ -58,8 +58,10 @@ if (response.IsSuccessStatusCode)
     {
         List<ProdutoModel> produtos = result.Data.
             GroupBy(p => p.Codigo)
-            .Select(g => g.OrderByDescending(p => DateTime.ParseExact(p.DataHoraAlteracao, "dd/MM/yyyy HH:mm:ss",
-            CultureInfo.InvariantCulture)).First()).ToList();
+            .Select(g => g.OrderByDescending(p => 
+            string.IsNullOrWhiteSpace(p.DataHoraAlteracaoHistorico)
+            ? DateTime.MinValue
+            : DateTime.ParseExact(p.DataHoraAlteracaoHistorico, "dd/MM/yyyy HH:mm:ss", new CultureInfo("pt-BR"))).First()).ToList();
 
         
         int batchSize = 3000;

@@ -1,0 +1,15 @@
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.csproj.AssemblyReference.cache
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.AssemblyInfoInputs.cache
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.AssemblyInfo.cs
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\bin\Debug\net7.0\Produto.exe
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\bin\Debug\net7.0\Produto.deps.json
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\bin\Debug\net7.0\Produto.runtimeconfig.json
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\bin\Debug\net7.0\Produto.dll
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\bin\Debug\net7.0\Produto.pdb
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.dll
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\refint\Produto.dll
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.pdb
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\Produto.genruntimeconfig.cache
+C:\Users\Dell\source\repos\SESC-Integration\Out\Produto\obj\Debug\net7.0\ref\Produto.dll

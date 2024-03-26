@@ -14,7 +14,7 @@ namespace SescIntegracaoLocal.Models
         public string GrupoPatrimonial { get; set; }
         public string Local { get; set; }
         public string Datadabaixa { get; set; }
-        public string DataHoraAlteracao { get; set; }
+        public string DataHoraAlteracaoHistorico { get; set; }
         public string Status { get; set; }
     }
 }
