@@ -75,12 +75,13 @@ if (response.IsSuccessStatusCode)
                 if (item.Datadabaixa != "")
                 {
                     item.Status = "10";
-
+                    item.Disposicao = "INDISPONIVEL";
 
                 }
                 else
                 {
                     item.Status = "11";
+                    item.Disposicao = "DISPONIVEL";
                 }
             }
 
@@ -99,7 +100,7 @@ if (response.IsSuccessStatusCode)
                         new XElement("ITEMMODEL_IDCODE", ""),
                         new XElement("DEPARTMENT_NAME", ""),
                         new XElement("CONDITION_NAME", ""),
-                        new XElement("DISPOSITION_NAME", ""),
+                        new XElement("DISPOSITION_NAME", objeto.Disposicao),
                         new XElement("LOCATION_NAME", objeto.Local),
                         new XElement("HOMELOCATION_NAME", ""),
                         new XElement("GROUP_NAME", $"{objeto.GrupoPatrimonial}"),

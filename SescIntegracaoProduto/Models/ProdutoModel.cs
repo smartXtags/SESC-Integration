@@ -16,5 +16,6 @@ namespace SescIntegracaoLocal.Models
         public string Datadabaixa { get; set; }
         public string DataHoraAlteracaoHistorico { get; set; }
         public string Status { get; set; }
+        public string Disposicao { get; set; }
     }
 }
