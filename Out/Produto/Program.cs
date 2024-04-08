@@ -1,10 +1,7 @@
 ﻿using Produto.Models;
 using SescIntegracaoLocal.Configs;
 using SescIntegracaoProduto.Models;
-using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -36,7 +33,7 @@ try
 
 
     string resultXml = await response.Content.ReadAsStringAsync();
-
+    
     string resultXml2 = await response2.Content.ReadAsStringAsync();
 
     if (resultXml == null || resultXml == "" && resultXml2 == null || resultXml2 == "")
@@ -68,15 +65,27 @@ try
         var xmlSerializer2 = new XmlSerializer(typeof(DocumentElement2));
         var data2 = (DocumentElement2)xmlSerializer2.Deserialize(doc2.CreateReader());
 
-
-        int batchSize = 3000;
+        
+        int batchSize = 1000;
         for (int i = 0; i <= data.Data.Count; i += batchSize)
         {
             int count = Math.Min(batchSize, data.Data.Count - i);
             var batch = data.Data.GetRange(i, count);
 
+
+            foreach (var product in batch)
+            {
+                var location = data2.LocationModels.FirstOrDefault(l => l.ID == product.LOCATION_ID);
+
+                if (location != null)
+                {
+                    product.LOCATION_ID = location.CODE;
+                }
+            }
             foreach (var item in batch)
             {
+                item.USR1.Substring(0, 10);
+                item.USR1.Replace("/", "");
                 if (item.ACTIVE == "0" || item.ACTIVE == "10")
                 {
                     item.ACTIVE = DateTime.Now.ToString("ddMMyyyy");
@@ -86,18 +95,68 @@ try
                     item.ACTIVE = "";
                 }
             }
+
+            List<object> list = new List<object>();
             foreach (var item in batch)
             {
-                var correspondingItem2 = data2.LocationModels.FirstOrDefault(x => x.ID == item.LOCATION_ID);
-                if (correspondingItem2 != null)
+                var patrimonio = new
                 {
-                    item.LOCATION_ID = correspondingItem2.CODE;
-                    item.USR1 = DateTime.Parse("ddMMyyyy").ToString();
-                }
+                    CodigoEmpresa = "PE",
+                    CodigoPatrimonio = item.IDCODE,
+                    CodigoAnexo = "000",
+                    DescricaoDoBem = item.DESCRIPTION,
+                    CodigoFornecedorDoBem = "",
+                    NomeFornecedorDoBem = "",
+                    NumerodoDocumento = "",
+                    DataAquisicaoDoBem = item.USR1.Substring(0, 10).Replace("/", ""),
+                    LancamentoContabildaAquisicao = "",
+                    CodigoGrupoPatrimonialDoBem = "",
+                    CodigoCentrodeCusto = "",
+                    LocalOndeoBemEstaAlocado = item.LOCATION_ID,
+                    NomedoUsuariodoBem = "",
+                    NumerodeSerie = "",
+                    CodigoItemEstoque = "",
+                    DataqueResponsavelFezoCadastro = "",
+                    DatadaVendaoudoBem = "",
+                    MotivodaBaixa = "",
+                    ValordaBaixa = "",
+                    LancamentoContabildeBaixa = "",
+                    Inventario = "",
+                    DatadeAberturadoInventario = "",
+                    ValordeAquisicaodoBem = "",
+                    ValorDespesasAcessorias = "",
+                    DatadeEntradaemUsodoBem = "",
+                    PercentualDepreciacaodoBem = "",
+                    ValorDepreciacaoAcumuladadoItem = "",
+                    DepreciacaoValorAcrescimoDecrescimo = "",
+                    DataUltimoMovimento = "",
+                    DataUsoSistema = "",
+                    SubgrupoPatrimonial = "",
+                    CodigoFilial = "",
+                    DescricaoComplementar = "",
+                    Quantidade = item.QUANTITY,
+                    QuantidadeAcrescimoDecrescimo = "",
+                    DatadeGarantia = "",
+                    ItemGeraCIAP = "",
+                    ValorMaximoDepreciacao1 = "1,00",
+                    CodigodoProjeto = "",
+                    TipoOperacao = "A",
+                    InterfaceClassificacaoEspecificaPatrimonio = new List<object>
+                    {
+                        new
+                            {
+                            Tipo = "P",
+                            Classe = "0001",
+                            Valor = "ST02"
+                        }
+                    }
+                };
+
+                list.Add(patrimonio);
             }
-            foreach (var item in batch)
-            {
-                var requestJson = new
+
+
+            var requestJson = new
                 {
                     AutheticationToken = new
                     {
@@ -107,61 +166,7 @@ try
                     },
                     Data = new
                     {
-                        InterfacedoPatrimonio = new List<object>
-                        {
-                            new
-                            {
-                                CodigoEmpresa = "PE",
-                                CodigoPatrimonio = item.IDCODE,
-                                CodigoAnexo = "000",
-                                DescricaoDoBem = item.DESCRIPTION,
-                                CodigoFornecedorDoBem = "",
-                                NomeFornecedorDoBem = "",
-                                NumerodoDocumento = "",
-                                DataAquisicaoDoBem = item.USR1.ToString(),
-                                LancamentoContabildaAquisicao = "",
-                                CodigoGrupoPatrimonialDoBem = "",
-                                CodigoCentrodeCusto = "",
-                                LocalOndeoBemEstaAlocado = item.LOCATION_ID,
-                                NomedoUsuariodoBem = "",
-                                NumerodeSerie = "",
-                                CodigoItemEstoque = "",
-                                DataqueResponsavelFezoCadastro = "",
-                                DatadaVendaoudoBem = "",
-                                MotivodaBaixa = "",
-                                ValordaBaixa = "",
-                                LancamentoContabildeBaixa = "",
-                                Inventario = "",
-                                DatadeAberturadoInventario = "",
-                                ValordeAquisicaodoBem = "",
-                                ValorDespesasAcessorias = "",
-                                DatadeEntradaemUsodoBem = "",
-                                PercentualDepreciacaodoBem = "",
-                                ValorDepreciacaoAcumuladadoItem = "",
-                                DepreciacaoValorAcrescimoDecrescimo = "",
-                                DataUltimoMovimento = "",
-                                DataUsoSistema = "",
-                                SubgrupoPatrimonial = "",
-                                CodigoFilial = "",
-                                DescricaoComplementar = "",
-                                Quantidade = item.QUANTITY,
-                                QuantidadeAcrescimoDecrescimo = "",
-                                DatadeGarantia = "",
-                                ItemGeraCIAP = "",
-                                ValorMaximoDepreciacao1 = "1,00",
-                                CodigodoProjeto = "",
-                                TipoOperacao = "A",
-                                InterfaceClassificacaoEspecificaPatrimonio = new List<object>
-                                {
-                                    new
-                                    {
-                                        Tipo = "P",
-                                        Classe = "0001",
-                                        Valor = "ST02"
-                                    }
-                                }
-                            }
-                        }
+                        InterfacedoPatrimonio = list
                     }
                 };
 
@@ -173,9 +178,17 @@ try
 
                     string resultMXM = await responseRequestJson.Content.ReadAsStringAsync();
 
-                    if (resultMXM == null || resultMXM == "")
+                    if (resultMXM == null || resultMXM == "" || resultMXM == "\"{\\\"Message\\\":\\\"An error has occurred.\\\"}\"")
                     {
-
+                        log.SaveLogToFile(Path.Combine(properts.LogPath(),
+                        $"log_ProdutosOUT {DateTime.Now:yyyy-MM-dd}.txt"),
+                        $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} - Error: {responseRequestJson}");
+                    }
+                    else
+                    {
+                        log.SaveLogToFile(Path.Combine(properts.LogPath(),
+                        $"log_ProdutosOUT {DateTime.Now:yyyy-MM-dd}.txt"),
+                        $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} - Success: {resultMXM}");
                     }
 
                 }
@@ -186,8 +199,8 @@ try
                     $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} - Error: {ex.Message}");
 
                 }
+            
 
-            }
         }
 
     }
