@@ -2,8 +2,6 @@
 using SescIntegracaoLocal.Models;
 using SescIntegracaoProduto.Models;
 using System.Globalization;
-using System.Net.Http;
-using System.Reflection;
 using System.Text.Json;
 using System.Xml.Linq;
 
@@ -25,7 +23,7 @@ var request = new
     {
         ConsultaItemPatrimonial = new
         {
-            Empresa = "PE",
+            Empresa = "",
             Filial = "",
             GrupoPatrimonialDe = "",
             GrupoPatrimonialAte = "",
@@ -42,19 +40,33 @@ var request = new
     }
 };
 
+var request2 = new
+{
+    command = "GetLocation",
+    terminal = "ERP",
+};
+
 var jsonContent = JsonSerializer.Serialize(request);
+
+var jsonContent2 = JsonSerializer.Serialize(request2);
 
 
 var response = await client.PostAsync(properts.ApiMXM(),
     new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json"));
 
+var response2 = await client.PostAsync(properts.ApiXtrack(),
+    new StringContent(jsonContent2, System.Text.Encoding.UTF8, "application/json"));
 
-if (response.IsSuccessStatusCode)
+if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode)
 {
     string responseCode = await response.Content.ReadAsStringAsync();
     var result = JsonSerializer.Deserialize<ResponseModel>(responseCode);
 
-    if (result.Success)
+    string responseCode2 = await response2.Content.ReadAsStringAsync();
+    var result2 = JsonSerializer.Deserialize<ResponseModel2>(responseCode2);
+
+
+    if (result.Success && result2 != null)
     {
         List<ProdutoModel> produtos = result.Data.
             GroupBy(p => p.Codigo)
@@ -63,20 +75,29 @@ if (response.IsSuccessStatusCode)
             ? DateTime.MinValue
             : DateTime.ParseExact(p.DataHoraAlteracaoHistorico, "dd/MM/yyyy HH:mm:ss", new CultureInfo("pt-BR"))).First()).ToList();
 
-        
+        List<LocalModel> localModels = result2.data;
         int batchSize = 3000;
         for (int i = 0; i <= produtos.Count; i += batchSize)
-        {
+        { 
             int count = Math.Min(batchSize, produtos.Count - i);
             var batch = produtos.GetRange(i, count);
-
             foreach (var item in batch)
             {
+                var descricaoCorrepondente = localModels.FirstOrDefault(x => x.USR3 == item.Local);
+
+                if (descricaoCorrepondente != null)
+                {
+                    item.Local = descricaoCorrepondente.CODE;
+                }
+                else
+                {
+                    item.Local = "";
+                }
+
                 if (item.Datadabaixa != "")
                 {
                     item.Status = "10";
                     item.Disposicao = "INDISPONIVEL";
-
                 }
                 else
                 {
@@ -166,9 +187,6 @@ if (response.IsSuccessStatusCode)
                     $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - Error: {ex.Message}");
 
             }
-            
-
-            
         }
     }
 

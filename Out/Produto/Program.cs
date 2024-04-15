@@ -79,7 +79,7 @@ try
 
                 if (location != null)
                 {
-                    product.LOCATION_ID = location.CODE;
+                    product.LOCATION_ID = location.USR3;
                 }
             }
             foreach (var item in batch)

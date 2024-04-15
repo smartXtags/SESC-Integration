@@ -1,2 +1,4 @@
 Api=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfacedoPatrimonio/ConsultaLocalFisico
 logDirectory=C:\temp\
+apiMXMProduto=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfacedoPatrimonio/ConsultaAquisicaoPatrimonial
+apiMXMFilial=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfaceEmpresaFilial/ConsultarFilial
