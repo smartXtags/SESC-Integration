@@ -17,5 +17,9 @@ namespace SescIntegracaoLocal.Models
         public string DataHoraAlteracaoHistorico { get; set; }
         public string Status { get; set; }
         public string Disposicao { get; set; }
+        public string DescricaoComplementar { get; set; }
+        public string ValorDeAquisicao { get; set; }
+        public string ValorDepreciado { get; set; }
+        public string ValorResidual { get; set; }
     }
 }

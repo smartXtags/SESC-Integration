@@ -43,3 +43,33 @@ C:\Users\Dell\source\repos\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6
 C:\Users\Dell\source\repos\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.pdb
 C:\Users\Dell\source\repos\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.genruntimeconfig.cache
 C:\Users\Dell\source\repos\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\ref\SescIntegracaoProduto.dll
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.AssemblyInfoInputs.cache
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.AssemblyInfo.cs
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.csproj.CoreCompileInputs.cache
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.sourcelink.json
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.dll
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\refint\SescIntegracaoProduto.dll
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.pdb
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.exe
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.deps.json
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.runtimeconfig.json
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.dll
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.pdb
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.genruntimeconfig.cache
+C:\Users\vinci\OneDrive\Área de Trabalho\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\ref\SescIntegracaoProduto.dll
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.exe
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.deps.json
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.runtimeconfig.json
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.dll
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\bin\Debug\net6.0\SescIntegracaoProduto.pdb
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.csproj.AssemblyReference.cache
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.AssemblyInfoInputs.cache
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.AssemblyInfo.cs
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.csproj.CoreCompileInputs.cache
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.dll
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\refint\SescIntegracaoProduto.dll
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.pdb
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\SescIntegracaoProduto.genruntimeconfig.cache
+C:\Users\Dell\Desktop\SESC-Integration\SescIntegracaoProduto\obj\Debug\net6.0\ref\SescIntegracaoProduto.dll
