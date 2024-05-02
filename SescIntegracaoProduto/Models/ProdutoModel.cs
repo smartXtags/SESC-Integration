@@ -21,5 +21,6 @@ namespace SescIntegracaoLocal.Models
         public string ValorDeAquisicao { get; set; }
         public string ValorDepreciado { get; set; }
         public string ValorResidual { get; set; }
+        public string Departamento { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z79BqB4XHk2p9sSLSuFo+6cOD7wF/R6qYt7BCkHDZjqI0SQcHZra7WPO4+n3ZlLyAN4GW+VU8X1H2jFcMdX+yw==",
+  "dgSpecHash": "eolus84SDZTjaedEqLlHeym2mEFg0kGr/pLKS1tdHSI7pDPYxvvpjftddzIpFIGjPqehyTQtAt610L44YunFJg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dell\\source\\repos\\IntegracaoSESC\\SescIntegracaoGrupo\\SescIntegracaoGrupo.csproj",
+  "projectFilePath": "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\SescIntegracaoGrupo\\SescIntegracaoGrupo.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

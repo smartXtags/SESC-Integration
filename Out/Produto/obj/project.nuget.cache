@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bFOzw9dYSD6d0JtzZkXnfxSMKagr+b9Q/22aynrxw4sJ/WcTZYS6VaT6khSUvzRs6xGalzJhhfh8fvlr6BtQAQ==",
+  "dgSpecHash": "16ge47pGag4ZpnKeT+zIT92x2MaByuiaJKtp1ZePLZ4ciOiIPmdXFkCDkKS+v29OHrN+T9/0r9p6F+NxsxnrEQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dell\\Desktop\\SESC-Integration\\Out\\Produto\\Produto.csproj",
+  "projectFilePath": "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\Out\\Produto\\Produto.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

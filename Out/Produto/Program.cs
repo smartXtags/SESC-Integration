@@ -1,5 +1,6 @@
 ﻿using Produto.Models;
 using SescIntegracaoLocal.Configs;
+using SescIntegracaoLocal.Models;
 using SescIntegracaoProduto.Models;
 using System.Text.Json;
 using System.Xml.Linq;
@@ -23,18 +24,53 @@ var request2 = new XDocument(
         new XElement("terminal", "ERP"))
     );
 
+var request3 = new
+{
+    AutheticationToken = new
+    {
+        Username = "INTEGRACAOPE",
+        Password = "Fpjuu4fj_-04e1vj",
+        EnvironmentName = "SESCPEHOM"
+    },
+    Data = new
+    {
+        Empresa = "",
+        Filial = ""
+    }
+};
+
+var request4 = new
+{
+    command = "GetDepartment",
+    terminal = "ERP"
+};
+
 try
 {
+
     var response = await client.PostAsync(properts.ApiXtrack(),
         new StringContent(request.ToString(), System.Text.Encoding.UTF8, "application/xml"));
 
     var response2 = await client.PostAsync(properts.ApiXtrack(),
         new StringContent(request2.ToString(), System.Text.Encoding.UTF8, "application/xml"));
 
+    var jsonContent3 = JsonSerializer.Serialize(request3);
+
+    var response3 = await client.PostAsync(properts.ApiMXMFilial(),
+        new StringContent(jsonContent3, System.Text.Encoding.UTF8, "application/json"));
+
+    var jsonContent4 = JsonSerializer.Serialize(request4);
+
+    var response4 = await client.PostAsync(properts.ApiXtrack(),
+        new StringContent(jsonContent4, System.Text.Encoding.UTF8, "application/json"));
 
     string resultXml = await response.Content.ReadAsStringAsync();
     
     string resultXml2 = await response2.Content.ReadAsStringAsync();
+
+    string responseCode3 = await response3.Content.ReadAsStringAsync();
+
+    string responseCode4 = await response4.Content.ReadAsStringAsync();
 
     if (resultXml == null || resultXml == "" && resultXml2 == null || resultXml2 == "")
     {
@@ -65,13 +101,17 @@ try
         var xmlSerializer2 = new XmlSerializer(typeof(DocumentElement2));
         var data2 = (DocumentElement2)xmlSerializer2.Deserialize(doc2.CreateReader());
 
-        
+        var result3 = JsonSerializer.Deserialize<ResponseModel3>(responseCode3);
+
+
+        var result4 = JsonSerializer.Deserialize<ResponseModel4>(responseCode4);
+
         int batchSize = 1000;
+        
         for (int i = 0; i <= data.Data.Count; i += batchSize)
         {
             int count = Math.Min(batchSize, data.Data.Count - i);
             var batch = data.Data.GetRange(i, count);
-
 
             foreach (var product in batch)
             {
@@ -96,6 +136,21 @@ try
                 }
             }
 
+            foreach (var item in batch)
+            {
+                var filialCorrespondente = result4.data.FirstOrDefault(x => x.ID == item.DEPARTMENT_ID);
+
+                var filialMxMCorrepondente = result3.Data.FirstOrDefault(x => x.NomeFilial == filialCorrespondente.NAME);
+
+                if (filialMxMCorrepondente != null)
+                {
+                    item.DEPARTMENT_ID = filialMxMCorrepondente.CodigoFilial;
+                }
+                else
+                {
+                    item.DEPARTMENT_ID = item.DEPARTMENT_ID;
+                }
+            }
             List<object> list = new List<object>();
             foreach (var item in batch)
             {
@@ -132,7 +187,7 @@ try
                     DataUltimoMovimento = "",
                     DataUsoSistema = "",
                     SubgrupoPatrimonial = "",
-                    CodigoFilial = "",
+                    CodigoFilial = item.DEPARTMENT_ID,
                     DescricaoComplementar = item.USR5,
                     Quantidade = item.QUANTITY,
                     QuantidadeAcrescimoDecrescimo = "",

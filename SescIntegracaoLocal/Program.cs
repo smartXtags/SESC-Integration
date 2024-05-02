@@ -107,6 +107,7 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
 
         List<FilialModel> filialModels = result3.Data.ToList();
 
+        List<FilialModel> departamentos = result3.Data.ToList();
         foreach (var localModel in localModels)
         {
             var filialCorrespondente = produtoModels.FirstOrDefault(x => x.Local == localModel.Codigo);
@@ -167,15 +168,36 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
                 )
             );
 
+        var departmentXml = new XDocument(
+            new XElement("msg",
+                new XElement("command", "ImportDepartment"),
+                new XElement("terminal", "ERP"),
+                new XElement("data",
+                    localModels.Select(filialModels => filialModels.Filial).Distinct().Select(filial => 
+                    new XElement("department",
+                        new XElement("NAME", filial)
+                        )
+                    )
+                 )
+              )
+            );
         try
         {
             var responseXml = await client.PostAsync(properts.ApiXtrack(),
-            new StringContent(secondiApiXml.ToString(), System.Text.Encoding.UTF8,
-            "application/xml"));
+                new StringContent(secondiApiXml.ToString(), System.Text.Encoding.UTF8,
+                    "application/xml"));
 
+            var responseDepartment = await client.PostAsync(properts.ApiXtrack(),
+                new StringContent(departmentXml.ToString(), System.Text.Encoding.UTF8, 
+                    "application/xml"));
+
+            
             var resultXml = await responseXml.Content.ReadAsStringAsync();
+            
+            var departmentResultXml = await responseDepartment.Content.ReadAsStringAsync();
 
-            if (resultXml == "<msg><status>0</status></msg>")
+            if (resultXml == "<msg><status>0</status></msg>" 
+                || departmentResultXml == "<msg><status>0</status></msg>")
             {
                 foreach (var model in localModels)
                 {

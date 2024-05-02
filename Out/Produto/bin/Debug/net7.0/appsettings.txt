@@ -1,3 +1,4 @@
-Api=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfacedoPatrimonio/ConsultaAquisicaoPatrimonial
+Api=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfacedoPatrimonio/Gravar
 logDirectory=C:\temp\
 apiXtrack=https://sescpe.smtx.com.br:6105/req
+apiMXMFilial=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfaceEmpresaFilial/ConsultarFilial

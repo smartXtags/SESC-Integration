@@ -82,11 +82,19 @@ var request3 = new
     }
 };
 
+
+var request4 = new
+{
+    command = "GetDepartment",
+    terminal = "ERP",
+};
 var jsonContent = JsonSerializer.Serialize(request);
 
 var jsonContent2 = JsonSerializer.Serialize(request2);
 
 var jsonContent3 = JsonSerializer.Serialize(request3);
+
+var jsonContent4 = JsonSerializer.Serialize(request4);
 
 Console.WriteLine("Consumindo api de Produtos");
 var response = await client.PostAsync(properts.ApiMXM(),
@@ -100,7 +108,11 @@ Console.WriteLine("Consumindo API de Item Patrimonial");
 var response3 = await client.PostAsync(properts.ApiMXMConsultaItemPatrimonial(),
     new StringContent(jsonContent3, System.Text.Encoding.UTF8, "application/json"));
 
-if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.IsSuccessStatusCode)
+Console.WriteLine("Consumindo API de departamentos Xtrack");
+var response4 = await client.PostAsync(properts.ApiXtrack(),
+    new StringContent(jsonContent4, System.Text.Encoding.UTF8, "application/json"));
+
+if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.IsSuccessStatusCode && response4.IsSuccessStatusCode)
 {
     string responseCode = await response.Content.ReadAsStringAsync();
     var result = JsonSerializer.Deserialize<ResponseModel>(responseCode);
@@ -111,7 +123,10 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
     string responseCode3 = await response3.Content.ReadAsStringAsync();
     var result3 = JsonSerializer.Deserialize<ResponseModel3>(responseCode3);
 
-    if (result.Success && result2 != null && result3.Success)
+    string responseCode4 = await response4.Content.ReadAsStringAsync();
+    var result4 = JsonSerializer.Deserialize<ResponseModel4>(responseCode4);
+
+     if (result.Success && result2 != null && result3.Success && result4 != null)
     {
         List<ProdutoModel> produtos = result.Data
             .GroupBy(p => p.Codigo)
@@ -121,8 +136,13 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
             : DateTime.ParseExact(p.DataHoraAlteracaoHistorico, "dd/MM/yyyy HH:mm:ss", new CultureInfo("pt-BR"))).First()).ToList();
 
         List<LocalModel> localModels = result2.data;
+        
+        List<LocalModel> localModels2 = result2.data;
+         
 
         List<ConsultaItemPatrimonialModel> itemPatrimoniais = result3.Data;
+        
+        List<DepartmentModel> departaments = result4.data;
         
         int batchSize = 3000;
         for (int i = 0; i <= produtos.Count; i += batchSize)
@@ -131,9 +151,12 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
             var batch = produtos.GetRange(i, count);
             foreach (var item in batch)
             {
+                
                 var descricaoCorrepondente = localModels.FirstOrDefault(x => x.USR3 == item.Local);
 
                 var itemPatrimonialCorrepondente = itemPatrimoniais.FirstOrDefault(x => x.CodigoItem == item.Codigo);
+
+
                 if (itemPatrimonialCorrepondente != null)
                 {
                     item.DescricaoComplementar = itemPatrimonialCorrepondente.DescricaoComplementar;
@@ -148,6 +171,7 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
                     item.ValorDepreciado = "";
                     item.ValorResidual = "";
                 }
+
                 if (descricaoCorrepondente != null)
                 {
                     item.Local = descricaoCorrepondente.CODE;
@@ -155,6 +179,24 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
                 else
                 {
                     item.Local = "";
+                }
+
+                string[] partesLocal = item.Local.Split('/');
+
+                if (partesLocal.Length >= 4)
+                {
+                    string filialItem = partesLocal[2];
+                    var departamento = departaments.FirstOrDefault(x => x.NAME == filialItem);
+
+                    if (departamento is null)
+                    {
+                        item.Departamento = "";
+                    }
+                    else
+                    {
+                        item.Departamento = departamento.NAME;
+                    }
+
                 }
 
                 if (item.Datadabaixa != "")
@@ -167,6 +209,7 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
                     item.Status = "11";
                     item.Disposicao = "DISPONIVEL";
                 }
+
             }
 
             var xml = new XDocument(
@@ -182,7 +225,7 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
                         new XElement("SERIALNUMBER", ""),
                         new XElement("QUANTITY", ""),
                         new XElement("ITEMMODEL_IDCODE", ""),
-                        new XElement("DEPARTMENT_NAME", ""),
+                        new XElement("DEPARTMENT_NAME", objeto.Departamento),
                         new XElement("CONDITION_NAME", ""),
                         new XElement("DISPOSITION_NAME", objeto.Disposicao),
                         new XElement("LOCATION_NAME", objeto.Local),

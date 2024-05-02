@@ -48,5 +48,17 @@ namespace SescIntegracaoLocal.Configs
             }
             return apiIsolada;
         }
+        public string ApiMXMFilial()
+        {
+            var lines = File.ReadAllLines("appsettings.txt");
+            string apiMXMProduto = lines.FirstOrDefault(line => line.StartsWith("apiMXMFilial="));
+            string apiIsolada = "";
+            if (apiMXMProduto != "" || apiMXMProduto != null)
+            {
+                int index = apiMXMProduto.IndexOf("=") + 1;
+                apiIsolada = apiMXMProduto.Substring(index);
+            }
+            return apiIsolada;
+        }
     }
 }
