@@ -113,6 +113,8 @@ try
             int count = Math.Min(batchSize, data.Data.Count - i);
             var batch = data.Data.GetRange(i, count);
 
+            //var batch = data.Data.Where(x => x.IDCODE == "0000032590").ToList();
+
             foreach (var product in batch)
             {
                 var location = data2.LocationModels.FirstOrDefault(l => l.ID == product.LOCATION_ID);
