@@ -1,11 +1,17 @@
 ﻿using SescIntegracaoLocal.Configs;
 using SescIntegracaoLocal.Models;
 using SescIntegracaoProduto.Models;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Transactions;
 using System.Xml.Linq;
 
-HttpClient client = new HttpClient();
+HttpClientHandler handler = new HttpClientHandler();
+handler.ServerCertificateCustomValidationCallback =
+    (HttpRequestMessage message, X509Certificate2 certificate,
+        X509Chain chain, SslPolicyErrors sslErrors) => true;
+HttpClient client = new HttpClient(handler);
 ApplicationPropperts config = new ApplicationPropperts();
 LogModel log = new LogModel();
 

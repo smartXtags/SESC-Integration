@@ -1,2 +1,0 @@
-Api=https://sescpehom.mxmwebmanager.com.br/webmanager/api/InterfacedoPatrimonio/ConsultaLocalFisico
-logDirectory=C:\temp\

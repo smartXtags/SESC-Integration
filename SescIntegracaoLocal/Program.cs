@@ -1,13 +1,19 @@
 ﻿using SescIntegracaoLocal.Configs;
 using SescIntegracaoLocal.Models;
 using SescIntegracaoProduto.Models;
+using System.Net.Security;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Xml.Linq;
 
 ApplicationPropperts properts  = new ApplicationPropperts();
-HttpClient client = new HttpClient();
+HttpClientHandler handler = new HttpClientHandler();
+handler.ServerCertificateCustomValidationCallback =
+    (HttpRequestMessage message, X509Certificate2 certificate,
+        X509Chain chain, SslPolicyErrors sslErrors) => true;
+HttpClient client = new HttpClient(handler);
 LogModel log = new LogModel();
 
 client.Timeout = TimeSpan.FromMinutes(100);
@@ -145,6 +151,7 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
                     new XElement("location",
                         new XElement("NAME", $"{localModels.UF}/{localModels.Cidade}/{localModels.Filial}/{localModels.Codigo} - {localModels.Descricao}"),
                         new XElement("ALLOCABLE", "1"),
+                        new XElement("DEPARTMENT", localModels.Filial), 
                         new XElement("USRDATA1", localModels.CodigoResponsavel),
                         new XElement("USRDATA2", localModels.NomeResponsavel),
                         new XElement("USRDATA3", localModels.Codigo),
@@ -183,13 +190,15 @@ if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode && response3.I
             );
         try
         {
+            var responseDepartment = await client.PostAsync(properts.ApiXtrack(),
+                new StringContent(departmentXml.ToString(), System.Text.Encoding.UTF8,
+                    "application/xml"));
+
             var responseXml = await client.PostAsync(properts.ApiXtrack(),
                 new StringContent(secondiApiXml.ToString(), System.Text.Encoding.UTF8,
                     "application/xml"));
 
-            var responseDepartment = await client.PostAsync(properts.ApiXtrack(),
-                new StringContent(departmentXml.ToString(), System.Text.Encoding.UTF8, 
-                    "application/xml"));
+            
 
             
             var resultXml = await responseXml.Content.ReadAsStringAsync();

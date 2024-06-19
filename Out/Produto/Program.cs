@@ -2,13 +2,22 @@
 using SescIntegracaoLocal.Configs;
 using SescIntegracaoLocal.Models;
 using SescIntegracaoProduto.Models;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-HttpClient client = new HttpClient();
 ApplicationPropperts properts = new ApplicationPropperts();
 LogModel log = new LogModel();
+
+HttpClientHandler handler = new HttpClientHandler();
+handler.ServerCertificateCustomValidationCallback =
+    (HttpRequestMessage message, X509Certificate2 certificate,
+        X509Chain chain, SslPolicyErrors sslErrors) => true;
+
+HttpClient client = new HttpClient(handler);
+
 
 client.Timeout = TimeSpan.FromMinutes(100);
 
@@ -45,24 +54,36 @@ var request4 = new
     terminal = "ERP"
 };
 
+var request5 = new
+{
+    command = "GetGroup",
+    terminal = "ERP"
+};
+
 try
 {
-
+    Console.WriteLine("Consumindo objetos do xtrack");
     var response = await client.PostAsync(properts.ApiXtrack(),
         new StringContent(request.ToString(), System.Text.Encoding.UTF8, "application/xml"));
 
+    Console.WriteLine("Consumindo locais do xtrack");
     var response2 = await client.PostAsync(properts.ApiXtrack(),
         new StringContent(request2.ToString(), System.Text.Encoding.UTF8, "application/xml"));
 
+    Console.WriteLine("Consumindo filiais do MxM");
     var jsonContent3 = JsonSerializer.Serialize(request3);
-
     var response3 = await client.PostAsync(properts.ApiMXMFilial(),
         new StringContent(jsonContent3, System.Text.Encoding.UTF8, "application/json"));
 
+    Console.WriteLine("Consumindo departamentos do xtrack");
     var jsonContent4 = JsonSerializer.Serialize(request4);
-
     var response4 = await client.PostAsync(properts.ApiXtrack(),
         new StringContent(jsonContent4, System.Text.Encoding.UTF8, "application/json"));
+
+    Console.WriteLine("Consumindo grupos do xtrack");
+    var jsonContent5 = JsonSerializer.Serialize(request5);
+    var response5 = await client.PostAsync(properts.ApiXtrack(),
+        new StringContent(jsonContent5, System.Text.Encoding.UTF8, "application/json"));
 
     string resultXml = await response.Content.ReadAsStringAsync();
     
@@ -71,6 +92,8 @@ try
     string responseCode3 = await response3.Content.ReadAsStringAsync();
 
     string responseCode4 = await response4.Content.ReadAsStringAsync();
+
+    string responseCode5 = await response5.Content.ReadAsStringAsync();
 
     if (resultXml == null || resultXml == "" && resultXml2 == null || resultXml2 == "")
     {
@@ -103,17 +126,17 @@ try
 
         var result3 = JsonSerializer.Deserialize<ResponseModel3>(responseCode3);
 
-
         var result4 = JsonSerializer.Deserialize<ResponseModel4>(responseCode4);
 
-        int batchSize = 1000;
+        var result5 = JsonSerializer.Deserialize<ResponseModel5>(responseCode5);
+
+        int batchSize = 3000;
         
         for (int i = 0; i <= data.Data.Count; i += batchSize)
         {
             int count = Math.Min(batchSize, data.Data.Count - i);
             var batch = data.Data.GetRange(i, count);
 
-            //var batch = data.Data.Where(x => x.IDCODE == "0000032590").ToList();
 
             foreach (var product in batch)
             {
@@ -140,6 +163,11 @@ try
 
             foreach (var item in batch)
             {
+                var grupoCorrespondente = result5.data.FirstOrDefault(x => x.ID == item.GROUP_ID);
+                if (grupoCorrespondente != null)
+                {
+                    item.GROUP_ID = grupoCorrespondente.NAME.Substring(0, 4);
+                }
                 var filialCorrespondente = result4.data.FirstOrDefault(x => x.ID == item.DEPARTMENT_ID);
 
                 var filialMxMCorrepondente = result3.Data.FirstOrDefault(x => x.NomeFilial == filialCorrespondente.NAME);
@@ -167,7 +195,7 @@ try
                     NumerodoDocumento = "",
                     DataAquisicaoDoBem = item.USR1.Substring(0, 10).Replace("/", ""),
                     LancamentoContabildaAquisicao = "",
-                    CodigoGrupoPatrimonialDoBem = "",
+                    CodigoGrupoPatrimonialDoBem = item.GROUP_ID,
                     CodigoCentrodeCusto = "",
                     LocalOndeoBemEstaAlocado = item.LOCATION_ID,
                     NomedoUsuariodoBem = "",
@@ -226,6 +254,7 @@ try
                         InterfacedoPatrimonio = list
                     }
                 };
+            GC.Collect();
 
                 try
                 {
@@ -256,8 +285,11 @@ try
                     $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} - Error: {ex.Message}");
 
                 }
-            
-
+            batch.Clear();
+            list.Clear();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
         }
 
     }

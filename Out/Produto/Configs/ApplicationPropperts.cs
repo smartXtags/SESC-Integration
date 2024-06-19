@@ -60,5 +60,17 @@ namespace SescIntegracaoLocal.Configs
             }
             return apiIsolada;
         }
+        public string ApiMXMGrupo()
+        {
+            var lines = File.ReadAllLines("appsettings.txt");
+            string apiMXMGrupoPatrimonial = lines.FirstOrDefault(line => line.StartsWith("apiMxMGrupoPatrimonial="));
+            string apiIsolada = "";
+            if (apiMXMGrupoPatrimonial != "" || apiMXMGrupoPatrimonial != null)
+            {
+                int index = apiMXMGrupoPatrimonial.IndexOf("=") + 1;
+                apiIsolada = apiMXMGrupoPatrimonial.Substring(index);
+            }
+            return apiIsolada;
+        }
     }
 }

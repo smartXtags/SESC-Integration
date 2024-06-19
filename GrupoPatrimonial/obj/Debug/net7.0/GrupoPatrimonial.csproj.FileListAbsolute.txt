@@ -1,0 +1,15 @@
+C:\Users\Dell\source\repos\GrupoPatrimonial\bin\Debug\net7.0\GrupoPatrimonial.exe
+C:\Users\Dell\source\repos\GrupoPatrimonial\bin\Debug\net7.0\GrupoPatrimonial.deps.json
+C:\Users\Dell\source\repos\GrupoPatrimonial\bin\Debug\net7.0\GrupoPatrimonial.runtimeconfig.json
+C:\Users\Dell\source\repos\GrupoPatrimonial\bin\Debug\net7.0\GrupoPatrimonial.dll
+C:\Users\Dell\source\repos\GrupoPatrimonial\bin\Debug\net7.0\GrupoPatrimonial.pdb
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.csproj.AssemblyReference.cache
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.AssemblyInfoInputs.cache
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.AssemblyInfo.cs
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.dll
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\refint\GrupoPatrimonial.dll
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.pdb
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\GrupoPatrimonial.genruntimeconfig.cache
+C:\Users\Dell\source\repos\GrupoPatrimonial\obj\Debug\net7.0\ref\GrupoPatrimonial.dll
