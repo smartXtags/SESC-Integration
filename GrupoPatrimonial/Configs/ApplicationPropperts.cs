@@ -11,43 +11,76 @@ namespace SescIntegracaoLocal.Configs
     {
         public string ApiMxMGrupoPatrimonial()
         {
-            var lines = File.ReadAllLines("Application.Propperties");
-            string apiMXM = lines.FirstOrDefault(line => line.StartsWith("ApiMxMGrupoPatrimonial="));
-            string apiIsolada = "";
+            var directoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = Path.Combine(directoryPath, "Application.Propperties");
 
-            if (apiMXM != null || apiMXM != "")
+            if (File.Exists(filePath))
             {
-                int index = apiMXM.IndexOf("=") + 1;
+                var lines = File.ReadAllLines(filePath);
+                string apiXtrack = lines.FirstOrDefault(line => line.StartsWith("ApiMxMGrupoPatrimonial="));
+                string apiIsolada = "";
 
-                apiIsolada = apiMXM.Substring(index);
+                if (apiXtrack != null || apiXtrack != "")
+                {
+                    int index = apiXtrack.IndexOf("=") + 1;
+
+                    apiIsolada = apiXtrack.Substring(index);
+                }
+                return apiIsolada;
             }
-            return apiIsolada;
+            else
+            {
+                throw new FileNotFoundException($"O arquivo app.settings não foi encontrado em {directoryPath}");
+            }
+            
         }
         public string LogPath()
         {
-            var lines = File.ReadAllLines("Application.Propperties");
-            string logPath = lines.FirstOrDefault(line => line.StartsWith("LogDirectory="));
+            var directoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = Path.Combine(directoryPath, "Application.Propperties");
 
-            string logIsolado = "";
-            if (logPath != null || logPath != "")
+            if (File.Exists(filePath))
             {
-                int index = logPath.IndexOf("=") + 1;
-                logIsolado += logPath.Substring(index);
+                var lines = File.ReadAllLines(filePath);
+                string apiXtrack = lines.FirstOrDefault(line => line.StartsWith("LogDirectory="));
+                string apiIsolada = "";
+
+                if (apiXtrack != null || apiXtrack != "")
+                {
+                    int index = apiXtrack.IndexOf("=") + 1;
+
+                    apiIsolada = apiXtrack.Substring(index);
+                }
+                return apiIsolada;
             }
-            return logIsolado;
+            else
+            {
+                throw new FileNotFoundException($"O arquivo app.settings não foi encontrado em {directoryPath}");
+            }
         }
         public string ApiXtrack()
         {
-            var lines = File.ReadAllLines("Application.Propperties");
-            string apiXtack = lines.FirstOrDefault(line => line.StartsWith("ApiXtrack="));
+            var directoryPath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = Path.Combine(directoryPath, "Application.Propperties");
 
-            string logIsolado = "";
-            if (apiXtack != null || apiXtack != "")
+            if (File.Exists(filePath))
             {
-                int index = apiXtack.IndexOf("=") + 1;
-                logIsolado += apiXtack.Substring(index);
+                var lines = File.ReadAllLines(filePath);
+                string apiXtrack = lines.FirstOrDefault(line => line.StartsWith("ApiXtrack="));
+                string apiIsolada = "";
+
+                if (apiXtrack != null || apiXtrack != "")
+                {
+                    int index = apiXtrack.IndexOf("=") + 1;
+
+                    apiIsolada = apiXtrack.Substring(index);
+                }
+                return apiIsolada;
             }
-            return logIsolado;
+            else
+            {
+                throw new FileNotFoundException($"O arquivo app.settings não foi encontrado em {directoryPath}");
+            }
         }
     }
 }

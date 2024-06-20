@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\source\\repos\\GrupoPatrimonial\\GrupoPatrimonial.csproj": {}
+    "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\GrupoPatrimonial\\GrupoPatrimonial.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\source\\repos\\GrupoPatrimonial\\GrupoPatrimonial.csproj": {
+    "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\GrupoPatrimonial\\GrupoPatrimonial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\source\\repos\\GrupoPatrimonial\\GrupoPatrimonial.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\GrupoPatrimonial\\GrupoPatrimonial.csproj",
         "projectName": "GrupoPatrimonial",
-        "projectPath": "C:\\Users\\Dell\\source\\repos\\GrupoPatrimonial\\GrupoPatrimonial.csproj",
+        "projectPath": "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\GrupoPatrimonial\\GrupoPatrimonial.csproj",
         "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\source\\repos\\GrupoPatrimonial\\obj\\",
+        "outputPath": "C:\\Users\\Dell\\source\\repos\\SESC-Integration\\GrupoPatrimonial\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
